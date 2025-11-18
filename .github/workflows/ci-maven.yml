@@ -22,14 +22,13 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      # 3) Ejecutar tests con Jacoco
-      #    (el pom está dentro de la carpeta "gestorcorreos")
+      # 3) Ejecutar tests con Jacoco (pom está en la raíz)
       - name: Build and test with Maven
-        run: mvn -B -f gestorcorreos/pom.xml clean test
+        run: mvn -B clean test
 
-      # 4) Subir el reporte de Jacoco como artefacto descargable
+      # 4) Subir el reporte Jacoco 
       - name: Upload Jacoco report
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: gestorcorreos/target/site/jacoco
+          path: target/site/jacoco
