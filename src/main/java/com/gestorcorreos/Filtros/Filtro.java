@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Filtros implements SearchSpecification {
+public class Filtro implements SearchSpecification {
     private final String nombre;
     private final Predicate<Email> criterio;
 
-    public Filtros(String nombre, Predicate<Email> criterio) {
+    public Filtro(String nombre, Predicate<Email> criterio) {
         if (nombre == null || nombre.isBlank()) throw new IllegalArgumentException("Nombre de filtro vacío");
         if (criterio == null) throw new IllegalArgumentException("Criterio nulo");
         this.nombre = nombre;
@@ -27,26 +27,26 @@ public class Filtros implements SearchSpecification {
         return emails.stream().filter(criterio).collect(Collectors.toList());
     }
 
-    public Filtros and(Filtros otro) { return new Filtros(this.nombre + " AND " + otro.nombre, this.criterio.and(otro.criterio)); }
-    public Filtros or(Filtros otro)  { return new Filtros(this.nombre + " OR " + otro.nombre,  this.criterio.or(otro.criterio)); }
-    public Filtros not()            { return new Filtros("NOT " + this.nombre, this.criterio.negate()); }
+    public Filtro and(Filtro otro) { return new Filtro(this.nombre + " AND " + otro.nombre, this.criterio.and(otro.criterio)); }
+    public Filtro or(Filtro otro)  { return new Filtro(this.nombre + " OR " + otro.nombre,  this.criterio.or(otro.criterio)); }
+    public Filtro not()            { return new Filtro("NOT " + this.nombre, this.criterio.negate()); }
 
     // Fábricas típicas:
-    public static Filtros asuntoContiene(String texto) {
+    public static Filtro asuntoContiene(String texto) {
         String t = texto == null ? "" : texto.toLowerCase();
-        return new Filtros("Asunto~'" + texto + "'", e -> e.getAsunto().toLowerCase().contains(t));
+        return new Filtro("Asunto~'" + texto + "'", e -> e.getAsunto().toLowerCase().contains(t));
     }
-    public static Filtros contenidoContiene(String texto) {
+    public static Filtro contenidoContiene(String texto) {
         String t = texto == null ? "" : texto.toLowerCase();
-        return new Filtros("Contenido~'" + texto + "'", e -> e.getContenido().toLowerCase().contains(t));
+        return new Filtro("Contenido~'" + texto + "'", e -> e.getContenido().toLowerCase().contains(t));
     }
-    public static Filtros remitenteDominio(String dominio) {
+    public static Filtro remitenteDominio(String dominio) {
         String d = normalizarDominio(dominio);
-        return new Filtros("Remitente@" + d, e -> e.getRemitente().getEmail().toLowerCase().endsWith(d));
+        return new Filtro("Remitente@" + d, e -> e.getRemitente().getEmail().toLowerCase().endsWith(d));
     }
-    public static Filtros destinatarioDominio(String dominio) {
+    public static Filtro destinatarioDominio(String dominio) {
         String d = normalizarDominio(dominio);
-        return new Filtros("Para@" + d, e -> e.getDestinatarios().algunoCumple(c -> c.getEmail().toLowerCase().endsWith(d)));
+        return new Filtro("Para@" + d, e -> e.getDestinatarios().algunoCumple(c -> c.getEmail().toLowerCase().endsWith(d)));
     }
 
     private static String normalizarDominio(String dominio) {
