@@ -1,4 +1,4 @@
-package com.gestorcorreos;
+package com.gestorcorreos.Interfaces;
 
 import com.gestorcorreos.Bandeja;
 import com.gestorcorreos.Email;
