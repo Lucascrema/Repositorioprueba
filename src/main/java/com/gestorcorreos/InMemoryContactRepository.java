@@ -1,8 +1,8 @@
 package com.gestorcorreos;
 
-import com.gestorcorreos.Interfaces.ContactRepository;
-
 import java.util.*;
+
+import com.gestorcorreos.Interfaces.ContactRepository;
 
 public class InMemoryContactRepository implements ContactRepository {
 

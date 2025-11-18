@@ -1,12 +1,12 @@
 package com.gestorcorreos;
 
 
-import com.gestorcorreos.interfaces.EmailStore;
-import com.gestorcorreos.interfaces.SearchSpecification;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import com.gestorcorreos.Interfaces.EmailStore;
+import com.gestorcorreos.Interfaces.SearchSpecification;
 
 public class EmailService {
 

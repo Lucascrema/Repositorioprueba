@@ -1,8 +1,8 @@
 package com.gestorcorreos.Filtros;
 
 import com.gestorcorreos.Email;
-import com.gestorcorreos.Contacto;
 import com.gestorcorreos.Interfaces.SearchSpecification;
+import com.gestorcorreos.Contacto;
 
 import java.util.List;
 import java.util.function.Predicate;

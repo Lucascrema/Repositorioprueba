@@ -1,8 +1,8 @@
 package com.gestorcorreos;
 
-import com.gestorcorreos.Interfaces.EmailStore;
-
 import java.util.*;
+
+import com.gestorcorreos.Interfaces.EmailStore;
 
 public class InMemoryEmailStore implements EmailStore {
     private final Map<Bandeja, List<Email>> porBandeja = new EnumMap<>(Bandeja.class);
