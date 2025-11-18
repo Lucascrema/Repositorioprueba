@@ -1,0 +1,35 @@
+name: CI - Maven tests with Jacoco
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Descargar el código del repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2) Instalar Java 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # 3) Ejecutar tests con Jacoco
+      #    (el pom está dentro de la carpeta "emailmanager")
+      - name: Build and test with Maven
+        run: mvn -B -f emailmanager/pom.xml clean test
+
+      # 4) Subir el reporte de Jacoco como artefacto descargable
+      - name: Upload Jacoco report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: emailmanager/target/site/jacoco
