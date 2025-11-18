@@ -23,13 +23,13 @@ jobs:
           java-version: 17
 
       # 3) Ejecutar tests con Jacoco
-      #    (el pom está dentro de la carpeta "emailmanager")
+      #    (el pom está dentro de la carpeta "gestorcorreos")
       - name: Build and test with Maven
-        run: mvn -B -f emailmanager/pom.xml clean test
+        run: mvn -B -f gestorcorreos/pom.xml clean test
 
       # 4) Subir el reporte de Jacoco como artefacto descargable
       - name: Upload Jacoco report
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
-          path: emailmanager/target/site/jacoco
+          path: gestorcorreos/target/site/jacoco
